@@ -33,8 +33,6 @@ const Page = () => {
 
   return (
     <div>
-      hi
-      <p>{user?.name}</p>
       {open && (
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
