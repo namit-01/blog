@@ -48,6 +48,7 @@ const Page = () => {
       );
 
       console.log(data);
+      setIsAuth(false);
 
       // Agar backend updated user bhejta hai
       // setUser(data.user);
