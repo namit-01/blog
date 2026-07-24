@@ -6,7 +6,7 @@ import moment from "moment";
 
 const BlogCard = ({ image, title, desc, id, time }) => {
   return (
-    <Link href={`/blog/${id}`}>
+    <Link href={`/blogs/${id}`}>
       <Card className="overflow-hidden rounded-lg shadow-none transition-shadow duration-300 hover:shadow-xl border-none">
         <div className="w-full h-[200px]">
           <img src={image} alt={title} className="w-full h-full object-cover" />
