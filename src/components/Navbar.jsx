@@ -83,7 +83,7 @@ const Navbar = () => {
 
             <li>
               <Link
-                href="/blog/saved"
+                href="/blogs/saved"
                 onClick={() => setIsOpen(false)}
                 className="block px-6 py-3 text-slate-700 transition hover:bg-slate-100 hover:text-blue-600"
               >
