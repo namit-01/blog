@@ -3,6 +3,7 @@ import "./globals.css";
 import Provider from "./Provider";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/context/AppProvider";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <Navbar></Navbar>
+
           <Provider>{children}</Provider>
         </AuthProvider>
       </body>

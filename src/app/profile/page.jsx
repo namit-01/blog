@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { useAppData } from "@/context/AppProvider";
 import { useRouter } from "next/navigation";
-import { Camera, Crown, LogOut, Pencil } from "lucide-react";
+import { Camera, Crown, LogOut, Pencil, User, User2 } from "lucide-react";
 import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 import axios from "axios";
 
@@ -65,6 +65,11 @@ const Page = () => {
               src={user.image}
               alt={user.name}
               className="h-24 w-24 rounded-full border object-cover"
+              onLoad={() => console.log("Loaded")}
+              onError={(e) => {
+                console.log("Image failed");
+                console.log(e);
+              }}
             />
 
             <button

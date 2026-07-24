@@ -135,7 +135,7 @@ const EditProfile = () => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 rounded-lg bg-blue-600 py-3 font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+              className="flex-1 rounded-lg bg-blue-600 py-3 font-medium text-white hover:bg-black-700 disabled:opacity-60"
             >
               {loading ? "Saving..." : "Save Changes"}
             </button>

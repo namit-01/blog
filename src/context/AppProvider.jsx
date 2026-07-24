@@ -16,7 +16,10 @@ export const blogCategories = [
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
-
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [searchQuery, setsearchQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [blogs, setBlogs] = useState();
   const fetchUser = async () => {
     try {
       const sessionId = localStorage.getItem("sessionId");
@@ -40,10 +43,30 @@ const AuthProvider = ({ children }) => {
       setIsAuth(false);
     }
   };
+  const fetchBlogs = async () => {
+    try {
+      console.log("fetch blog is called");
+      const sessionId = localStorage.getItem("sessionId");
 
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_BLOG_API_URL}/allblogs?searchQuery=${searchQuery}&category=${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionId}`,
+          },
+        },
+      );
+      setBlogs(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     fetchUser();
   }, [isAuth]);
+  useEffect(() => {
+    fetchBlogs();
+  }, [category, searchQuery]);
 
   return (
     <AuthContext.Provider
@@ -52,6 +75,14 @@ const AuthProvider = ({ children }) => {
         isAuth,
         setUser,
         setIsAuth,
+        sidebarOpen,
+        setSidebarOpen,
+        setCategory,
+        setsearchQuery,
+        category,
+        searchQuery,
+        blogs,
+        setBlogs,
       }}
     >
       {children}
