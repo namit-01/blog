@@ -1,36 +1,55 @@
 "use client";
+
 import BlogCard from "@/components/BlogCard";
 import axios from "axios";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAppData } from "@/context/AppProvider";
 
 const Page = () => {
-  const [filteredBlogs, set] = useState([]);
+  const { blogs } = useAppData();
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
+
   const getSaved = async () => {
     try {
       const sessionId = localStorage.getItem("sessionId");
+
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_BLOG_API_URL}/getsave`,
-
         {
           headers: {
             Authorization: `Bearer ${sessionId}`,
           },
         },
       );
-      console.log(data);
-      set(data);
+
+      const filtered = [];
+
+      for (let i = 0; i < blogs.length; i++) {
+        for (let j = 0; j < data.length; j++) {
+          if (blogs[i].id === data[j].blogid) {
+            filtered.push(blogs[i]);
+            break;
+          }
+        }
+      }
+
+      setFilteredBlogs(filtered);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
-    getSaved();
-  }, []);
+    if (blogs?.length) {
+      getSaved();
+    }
+  }, [blogs]);
+
   return (
     <div className="container mx-auto px-4 py-6">
       <h1 className="mb-6 text-3xl font-bold">Saved Blogs</h1>
 
-      {filteredBlogs?.length > 0 ? (
+      {filteredBlogs.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredBlogs.map((blog) => (
             <BlogCard
