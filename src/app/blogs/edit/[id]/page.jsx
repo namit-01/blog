@@ -14,10 +14,11 @@ import { toast } from "sonner";
 
 import { blogCategories } from "@/context/AppProvider";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { RefreshCcw } from "lucide-react";
 
 const Page = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -43,7 +44,7 @@ const Page = () => {
       const sessionId = localStorage.getItem("sessionId");
 
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTHOR_API_URL}/api/v1/blog/new`,
+        `${process.env.NEXT_PUBLIC_AUTHOR_API_URL}/update/blog/${id}`,
         data,
         {
           headers: {
