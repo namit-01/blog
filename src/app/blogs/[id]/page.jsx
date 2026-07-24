@@ -3,8 +3,9 @@
 import { useAppData } from "@/context/AppProvider";
 import axios from "axios";
 import { Bookmark, BookmarkCheck, Edit, Trash2, User2 } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const Page = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const Page = () => {
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user } = useAppData();
+  const router = useRouter();
 
   // Fetch Blog
   const fetchBlog = async () => {
@@ -84,6 +86,7 @@ const Page = () => {
 
   const deleteBlog = async () => {
     try {
+      setLoading(true);
       const sessionId = localStorage.getItem("sessionId");
 
       const { data } = await axios.post(
@@ -95,6 +98,9 @@ const Page = () => {
           },
         },
       );
+      setLoading(false);
+      toast.success("Blog deleted successfully");
+
       console.log(data);
     } catch (err) {
       console.log(err.response?.data);
@@ -103,13 +109,52 @@ const Page = () => {
     }
   };
 
-  const saveBlog = async () => {};
+  const saveBlog = async () => {
+    try {
+      const sessionId = localStorage.getItem("sessionId");
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_BLOG_API_URL}/save/${id}`,
 
+        {
+          headers: {
+            Authorization: `Bearer ${sessionId}`,
+          },
+        },
+      );
+      if (data.message == "Blog Saved") {
+        setSaved(true);
+      } else {
+        setSaved(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getSaved = async () => {
+    try {
+      const sessionId = localStorage.getItem("sessionId");
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_BLOG_API_URL}/getsave`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${sessionId}`,
+          },
+        },
+      );
+      if (data[0].blogid == id) {
+        setSaved(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // -------------------------------------------------
 
   useEffect(() => {
     fetchBlog();
     fetchComment();
+    getSaved();
   }, [id]);
 
   if (loading || !blog) {
@@ -156,6 +201,7 @@ const Page = () => {
 
                   <button
                     onClick={deleteBlog}
+                    disabled={loading}
                     className="rounded-xl border border-red-500 p-3 text-red-600 transition hover:bg-red-50"
                   >
                     <Trash2 />

@@ -37,6 +37,7 @@ const Page = () => {
 
         userData,
       );
+      console.log("login", data);
       setLoading(false);
       router.replace("/");
       setOpen(false);
