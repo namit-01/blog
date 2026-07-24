@@ -205,7 +205,10 @@ const Page = () => {
               </button>
               {blog?.author === user?.userId && (
                 <>
-                  <button className="rounded-xl border border-blue-500 p-3 text-blue-600 transition hover:bg-blue-50">
+                  <button
+                    className="rounded-xl border border-blue-500 p-3 text-blue-600 transition hover:bg-blue-50"
+                    onClick={() => router.push(`/blogs/edit/${id}`)}
+                  >
                     <Edit />
                   </button>
 
