@@ -128,7 +128,7 @@ const Page = () => {
         <Card className="rounded-2xl border-0 shadow-xl">
           <CardHeader className="border-b pb-6">
             <CardTitle className="text-3xl font-bold text-slate-900">
-              Add New Blog
+              Edit Blog
             </CardTitle>
             <p className="mt-2 text-sm text-slate-500">
               Share your ideas with the world.
