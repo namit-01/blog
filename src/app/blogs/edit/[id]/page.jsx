@@ -44,7 +44,7 @@ const Page = () => {
       const sessionId = localStorage.getItem("sessionId");
 
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_AUTHOR_API_URL}/update/blog/${id}`,
+        `${process.env.NEXT_PUBLIC_AUTHOR_API_URL}/api/v1/update/blog/${id}`,
         data,
         {
           headers: {
