@@ -3,7 +3,7 @@ import BlogCard from "@/components/BlogCard";
 import React, { use, useEffect, useState } from "react";
 
 const Page = () => {
-  const [filteredBlogs, set] = useState();
+  const [filteredBlogs, set] = useState([]);
   const getSaved = async () => {
     try {
       const sessionId = localStorage.getItem("sessionId");
@@ -28,7 +28,7 @@ const Page = () => {
     <div className="container mx-auto px-4 py-6">
       <h1 className="mb-6 text-3xl font-bold">Saved Blogs</h1>
 
-      {filteredBlogs.length > 0 ? (
+      {filteredBlogs?.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredBlogs.map((blog) => (
             <BlogCard
