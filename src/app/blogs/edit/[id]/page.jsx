@@ -43,7 +43,7 @@ const Page = () => {
 
       const sessionId = localStorage.getItem("sessionId");
 
-      const res = await axios.post(
+      const res = await axios.put(
         `${process.env.NEXT_PUBLIC_AUTHOR_API_URL}/update/blog/${id}`,
         data,
         {
