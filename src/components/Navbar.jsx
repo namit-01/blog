@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/blog/saved"
+            href="/blogs/saved"
             className="font-medium text-slate-700 transition hover:text-blue-600"
           >
             Saved Blogs
