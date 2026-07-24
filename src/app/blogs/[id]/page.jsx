@@ -62,8 +62,10 @@ const Page = () => {
           },
         },
       );
+      toast.success(data.message);
       console.log(data);
     } catch (err) {
+      toast.error(err.response?.data?.message || "Something went wrong");
       console.log(err);
     }
   };
@@ -73,15 +75,17 @@ const Page = () => {
       const sessionId = localStorage.getItem("sessionId");
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_BLOG_API_URL}/delcom/${cid}`,
-
         {
           headers: {
             Authorization: `Bearer ${sessionId}`,
           },
         },
       );
+      toast.success(data.message);
       console.log(data);
-    } catch (err) {}
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Something went wrong");
+    }
   };
 
   const deleteBlog = async () => {
@@ -99,12 +103,13 @@ const Page = () => {
         },
       );
       setLoading(false);
-      toast.success("Blog deleted successfully");
+      toast.success(data.message);
 
       console.log(data);
     } catch (err) {
+      setLoading(false);
+      toast.error(err.response?.data?.message || "Something went wrong");
       console.log(err.response?.data);
-      console.log(err.response?.data?.message);
       console.log(err.message);
     }
   };
