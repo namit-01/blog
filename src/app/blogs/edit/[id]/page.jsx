@@ -36,7 +36,13 @@ const Page = () => {
       const { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_BLOG_API_URL}/blog/${id}`,
       );
-      console.log(data);
+      setFormData({
+        title: data.blog.title,
+        category: data.blog.category,
+        description: data.blog.description,
+        image: data.blog.image,
+        blogcontent: data.blog.blogcontent,
+      });
     } catch (err) {
       console.log(err);
     } finally {
