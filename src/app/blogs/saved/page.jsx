@@ -1,5 +1,6 @@
 "use client";
 import BlogCard from "@/components/BlogCard";
+import axios from "axios";
 import React, { use, useEffect, useState } from "react";
 
 const Page = () => {
