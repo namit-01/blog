@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
@@ -19,6 +19,7 @@ import { RefreshCcw } from "lucide-react";
 
 const Page = () => {
   const { id } = useParams();
+
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -28,6 +29,20 @@ const Page = () => {
     blogcontent: "",
   });
   const [loading, setLoading] = useState(false);
+  const fetchBlog = async () => {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_BLOG_API_URL}/blog/${id}`,
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -122,6 +137,9 @@ const Page = () => {
       console.log(err);
     }
   };
+  useEffect(() => {
+    fetchBlog();
+  }, []);
   const router = useRouter();
   return (
     <div className="min-h-screen bg-slate-100 py-10 px-4">
