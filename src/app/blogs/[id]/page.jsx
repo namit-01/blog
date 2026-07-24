@@ -142,8 +142,13 @@ const Page = () => {
           },
         },
       );
-      if (data[0].blogid == id) {
-        setSaved(true);
+
+      let i = 0;
+      for (i = 0; i < data.length; i++) {
+        if (data[i].blogid == id) {
+          setSaved(true);
+          break;
+        }
       }
     } catch (err) {
       console.log(err);
