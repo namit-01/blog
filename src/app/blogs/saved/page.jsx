@@ -17,6 +17,7 @@ const Page = () => {
           },
         },
       );
+      console.log(data);
       set(data);
     } catch (err) {
       console.log(err);
